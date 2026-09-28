@@ -1,0 +1,45 @@
+﻿@model List<ProjetoEscolar.Models.Aluno>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+
+<h2>Lista de Alunos</h2>
+
+<a asp-action="CadastrarAluno" class="btn btn-primary mb-3">Cadastrar novo aluno</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Matrícula</th>
+            <th>Curso</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td>@aluno.Nome</td>
+                <td>@aluno.Matricula</td>
+                <td>@aluno.Curso</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@aluno.Id" class="btn btn-sm btn-warning">Editar</a>
+
+                    <form asp-action="Delete" asp-route-id="@aluno.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Deseja realmente excluir este aluno?');">
+                        <button type="submit" class="btn btn-sm btn-danger">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (TempData["Mensagem"] != null)
+{
+    <script>
+        alert("@TempData["Mensagem"]");
+    </script>
+}
